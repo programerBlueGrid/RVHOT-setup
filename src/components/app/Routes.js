@@ -1,10 +1,14 @@
 import { Route, Switch } from "react-router-dom";
-import { Signin } from "../user/Signin";
+import { Signin } from '../user/Signin'
+import { Signup } from "../user/Signup";
+
 
 export function Routes() {
   return (
     <Switch>
-      <Route path="/" component={Signin} />
+      <Route path="/signin" component={Signin} />
+			<Route path="/signup" component={Signup} />
+
     </Switch>
   );
 }

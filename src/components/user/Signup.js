@@ -19,25 +19,19 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { StyledSignup } from "./SigninAndSignupStyles";
 
-import { StyledSignin } from "./SigninAndSignupStyles";
-
-export function Signin() {
-  const formElements = [
-    { el: "email", enter: "Enter email", id: 1 },
-    { el: "password", enter: "Enter password", id: 2 },
-  ];
-
+export function Signup() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const SigninSchema = Yup.object().shape({
+  const SignupSchema = Yup.object().shape({
     password: Yup.string().min(7, "Too Short!").max(50, "Too Long!").required("This field is required"),
     email: Yup.string().email("Email format is invalid").required("This field is required"),
   });
 
   return (
-    <StyledSignin>
+    <StyledSignup>
       <Flex minH="100vh" align="center" justify="center">
         <Box w={[300, 350, 400]} rounded="3xl" bg="white" boxShadow="lg" p={8}>
           <Formik
@@ -45,7 +39,7 @@ export function Signin() {
               email: "",
               password: "",
             }}
-            validationSchema={SigninSchema}
+            validationSchema={SignupSchema}
             onSubmit={(values, actions) => {
               console.log("email: ", values.email);
               console.log("password: ", values.password);
@@ -60,9 +54,26 @@ export function Signin() {
               <Form>
                 <Center pb={6}>
                   <Heading as="h3" size="lg">
-                    Sign In
+                    Sign Up
                   </Heading>
                 </Center>
+                <Field name="fullName">
+                  {({ field }) => (
+                    <FormControl height="120px">
+                      <FormLabel pl={2} htmlFor="fullName">
+                        FULL NAME
+                      </FormLabel>
+                      <Input
+                        size="lg"
+                        {...field}
+                        id="fullName"
+                        placeholder={"Full name"}
+                        focusBorderColor="green.900"
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+
                 <Field name="email">
                   {({ field, form }) => (
                     <FormControl isInvalid={form.errors.email && form.touched.email} height="120px">
@@ -138,6 +149,6 @@ export function Signin() {
    <BaseFormikSetValues/> */}
         </Box>
       </Flex>
-    </StyledSignin>
+    </StyledSignup>
   );
 }
